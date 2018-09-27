@@ -1,14 +1,14 @@
-# Awesome WM 4.x Pro themes 
+# Awesome WM 4.x Material themes 
 
 ## Description
 A Material Theme for the Awesome window manager, version 4.x.
 
 ## Gallery
 
-![](https://raw.githubusercontent.com/papyelgringo/.config/awesome/master/screenshots/tiled.png)
+![](https://github.com/PapyElGringo/.config/blob/master/awesome/screenshots/tiled.png?raw=true)
 ---
 
-![](https://raw.githubusercontent.com/papyelgringo/.config/awesome/master/screenshots/tabbed.png)
+![](https://github.com/PapyElGringo/.config/blob/master/awesome/screenshots/tabbed.png?raw=true)
 ---
 
 ## Requirements
