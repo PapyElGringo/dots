@@ -50,7 +50,7 @@ local LeftPanel = function(s)
         {
             -- Right widgets
             layout = wibox.layout.fixed.vertical,
-            wibox.layout.margin(systray, 10, 10),
+            wibox.container.margin(systray, 10, 10),
             -- Clock
             clock_widget
         }
