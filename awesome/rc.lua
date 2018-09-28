@@ -180,12 +180,9 @@ local function connect(s)
 
     -- If wallpaper is a function, call it with the screen
 
-    gears.wallpaper.set(beautiful.background_hue_800, 1, true)
+    gears.wallpaper.set(beautiful.wallpaper, 1, true)
 
     -- Tags
-    --awful.tag(awful.util.tagnames, s, awful.layout.layouts[1])
-    --layout = { awful.layout.layouts[1], awful.layout.layouts[1]}
-    --awful.tag({ "  ", "  " }, s, layout)
     setTags(s)
 
     -- Create the Top bar
@@ -248,9 +245,7 @@ _G.root.buttons(
             function()
                 awful.util.mymainmenu:toggle()
             end
-        ),
-        awful.button({}, 4, awful.tag.viewnext),
-        awful.button({}, 5, awful.tag.viewprev)
+        )
     )
 )
 
@@ -265,7 +260,21 @@ local clientbuttons =
         end
     ),
     awful.button({modkey}, 1, awful.mouse.client.move),
-    awful.button({modkey}, 3, awful.mouse.client.resize)
+    awful.button({modkey}, 3, awful.mouse.client.resize),
+    awful.button(
+        {modkey},
+        4,
+        function()
+            awful.layout.inc(1)
+        end
+    ),
+    awful.button(
+        {modkey},
+        5,
+        function()
+            awful.layout.inc(-1)
+        end
+    )
 )
 
 _G.root.keys(conf.keys.global)
@@ -300,6 +309,47 @@ awful.rules.rules = {
 }
 -- }}}
 
+function renderClient(client)
+    local t = client.first_tag
+    local layout = awful.tag.getproperty(t, 'layout')
+    local only_child = t:clients()[2] == nil
+    print(only_child)
+    print(layout)
+    if layout == awful.layout.suit.max or only_child then
+        print('a')
+        client.border_width = 0
+        client.shape = gears.shape.rect
+    else
+        print('b')
+        client.border_width = beautiful.border_width
+        client.shape = function(cr, w, h)
+            gears.shape.rounded_rect(cr, w, h, 6)
+        end
+    end
+end
+
+function refreshClientsOnTags()
+    local tags = awful.screen.focused().selected_tags
+    for i1, tag in pairs(tags) do
+        for i2, client in pairs(tag:clients()) do
+            renderClient(client)
+        end
+    end
+end
+
+tag.connect_signal(
+    'property::layout',
+    function(t)
+        local currentLayout = awful.tag.getproperty(t, 'layout')
+        if (currentLayout == awful.layout.suit.max) then
+            t.gap = 0
+        else
+            t.gap = 8
+        end
+        refreshClientsOnTags()
+    end
+)
+
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
 _G.client.connect_signal(
@@ -307,6 +357,9 @@ _G.client.connect_signal(
     function(c)
         -- Set the windows at the slave,
         -- i.e. put it at the end of others instead of setting it master.
+
+        refreshClientsOnTags()
+
         if not _G.awesome.startup then
             awful.client.setslave(c)
         end
@@ -317,6 +370,13 @@ _G.client.connect_signal(
         end
         c.maximized = false
         -- c.floated = false
+    end
+)
+
+_G.client.connect_signal(
+    'unmanage',
+    function(c)
+        refreshClientsOnTags()
     end
 )
 
@@ -347,12 +407,7 @@ _G.client.connect_signal(
 _G.client.connect_signal(
     'focus',
     function(c)
-        if c.maximized then -- no borders if only 1 client visible
-            c.border_width = 0
-        elseif #awful.screen.focused().clients > 1 then
-            c.border_width = beautiful.border_width
-            c.border_color = beautiful.border_focus
-        end
+        c.border_color = beautiful.border_focus
     end
 )
 _G.client.connect_signal(

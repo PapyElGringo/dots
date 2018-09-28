@@ -90,7 +90,7 @@ local TopPanel = function(s)
             ontop = true,
             screen = s,
             height = 48,
-            bg = beautiful.dark_bg,
+            bg = beautiful.background,
             fg = beautiful.fg_normal
         }
     )

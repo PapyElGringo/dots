@@ -1,6 +1,6 @@
 local awful = require('awful')
 local iconPath = os.getenv('HOME') .. '/.config/awesome/theme/icons/tag-list/tag/'
-
+local gears = require('gears')
 local tags = {
     {
         icon = 'google-chrome.png',

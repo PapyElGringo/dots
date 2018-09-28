@@ -6,7 +6,7 @@ theme.dir = os.getenv('HOME') .. '/.config/awesome/theme'
 
 theme.icons = theme.dir .. '/icons'
 --theme.wallpaper = theme.dir .. '/wallpapers/pro-dark-shadow.png'
-theme.wallpaper = '#00345f'
+theme.wallpaper = '#161718'
 theme.panel = 'png:' .. theme.icons .. '/tag-list/panel.png'
 theme.font = 'Roboto medium 10'
 theme.calendar_font = 'Meslo LGS Regular 10'
@@ -20,6 +20,7 @@ theme.accent = '#003f6b'
 theme.accent_hue_300 = '#174a78'
 theme.accent_hue_800 = '#00345f'
 
+theme.appBackground = '#212121'
 theme.background = '#192933'
 theme.background_hue_800 = '#151515'
 
@@ -29,7 +30,7 @@ theme.fg_focus = '#e4e4e4'
 theme.fg_urgent = '#CC9393'
 theme.bat_fg_critical = '#232323'
 
-theme.bg_normal = theme.background
+theme.bg_normal = theme.appBackground
 theme.bg_focus = '#5a5a5a'
 theme.bg_urgent = '#3F3F3F'
 theme.bg_systray = theme.background
@@ -40,8 +41,8 @@ theme.clockgf = '#ffffff'
 -- Borders
 
 theme.border_width = 2
-theme.border_normal = '#3F3F3F'
-theme.border_focus = '#6F6F6F'
+theme.border_normal = theme.background
+theme.border_focus = theme.primary_hue_300
 theme.border_marked = '#CC9393'
 
 -- Menu
@@ -77,6 +78,7 @@ theme.taglist_bg_focus = 'png:' .. theme.icons .. '/tag-list/selected.png'
 -- Tasklist
 
 theme.tasklist_font = 'Roboto medium 11'
+theme.tasklist_bg_normal = theme.background
 theme.tasklist_bg_focus =
     'linear:0,0:0,48:0,' ..
     theme.background .. ':0.95,' .. theme.background .. ':0.95,' .. theme.fg_normal .. ':1,' .. theme.fg_normal
