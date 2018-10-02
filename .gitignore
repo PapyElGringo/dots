@@ -7,5 +7,4 @@
 # ...even if they are in subdirectories
 
 !alacritty/*
-!awesome/*
 !rofi/*
