@@ -6,5 +6,8 @@
 
 # ...even if they are in subdirectories
 
-!alacritty/*
-!fish/*
+!alacritty
+!fish
+!rofi
+!awesome
+!Code/User/*.json
